@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Edit Election - Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><a href="/admin/elections">← Elections</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="card-glass p-8" style="max-width:800px;margin:0 auto;">
+    <h1 class="h2 mb-6">Edit Election</h1>
+    <form method="POST" action="/admin/elections/{{ELECTION_ID}}/edit">
+      <div class="form-group">
+        <label for="title" class="form-label">Election Title</label>
+        <input type="text" id="title" name="title" class="form-control" value="{{ELECTION_TITLE}}" required>
+      </div>
+      <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="description" class="form-control" rows="3">{{ELECTION_DESC}}</textarea>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="start_date" class="form-label">Start Date &amp; Time</label>
+            <input type="datetime-local" id="start_date" name="start_date" class="form-control" value="{{START_DATE}}" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="end_date" class="form-label">End Date &amp; Time</label>
+            <input type="datetime-local" id="end_date" name="end_date" class="form-control" value="{{END_DATE}}" required>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex gap-3">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="/admin/elections" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

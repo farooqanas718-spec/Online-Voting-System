@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{{ELECTION_TITLE}} - Voting System</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+<link rel="stylesheet" href="/css/candidate.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="{{BACK_URL}}" class="navbar-brand">🗳️ VoteSecure</a>
+      <ul class="navbar-nav">
+        <li><a href="{{BACK_URL}}">← Back</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+
+  <!-- Header -->
+  <div class="card-glass p-8 mb-8">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+      <h1>{{ELECTION_TITLE}}</h1>
+      <span class="badge badge-{{STATUS_COLOR}}" style="font-size:var(--text-base);padding:var(--space-2) var(--space-4);">{{ELECTION_STATUS}}</span>
+    </div>
+    <p class="text-gray mb-6">{{ELECTION_DESC}}</p>
+    <div style="display:flex;gap:var(--space-12);flex-wrap:wrap;">
+      <div class="text-center">
+        <p class="text-sm text-gray mb-1">Start Date</p>
+        <p class="fw-bold">{{START_DATE}}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-sm text-gray mb-1">End Date</p>
+        <p class="fw-bold">{{END_DATE}}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-sm text-gray mb-1">Total Votes</p>
+        <p class="fw-bold" style="font-size:var(--text-2xl);color:var(--primary-600);">{{TOTAL_VOTES}}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-sm text-gray mb-1">Candidates</p>
+        <p class="fw-bold" style="font-size:var(--text-2xl);color:var(--secondary-600);">{{TOTAL_CANDIDATES}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  {{ALERTS}}
+
+  <!-- Candidates -->
+  <div class="card-glass p-6 mb-6">
+    <h2 class="h3 mb-6">Candidates</h2>
+    {{CANDIDATES_HTML}}
+    {{NO_CANDIDATES}}
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{{BACK_URL}}" class="btn btn-outline">← Back</a>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transform='translateY(-20px)';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  // Candidate card radio selection highlight
+  document.querySelectorAll('.candidate-card').forEach(card=>{
+    card.addEventListener('click',function(){
+      document.querySelectorAll('.candidate-card').forEach(c=>c.classList.remove('selected'));
+      this.classList.add('selected');
+      const r=this.querySelector('input[type="radio"]');
+      if(r) r.checked=true;
+    });
+  });
+});
+</script>
+</body>
+</html>

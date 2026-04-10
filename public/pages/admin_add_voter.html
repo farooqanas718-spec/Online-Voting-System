@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Add Voter - Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><a href="/admin/voters">← Manage Voters</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="card-glass p-8" style="max-width:700px;margin:0 auto;">
+    <h1 class="h2 mb-6">Add New Voter</h1>
+    <form method="POST" action="/admin/voters/add">
+      <div class="form-group">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="e.g. Ali Hassan" value="{{NAME_VAL}}" required>
+      </div>
+      <div class="form-group">
+        <label for="cnic" class="form-label">CNIC Number</label>
+        <input type="text" id="cnic" name="cnic" class="form-control" placeholder="0000000000000 (13 digits)" value="{{CNIC_VAL}}" required maxlength="15">
+        <span class="form-text">Enter 13 digit CNIC without dashes</span>
+      </div>
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="voter@example.com" value="{{EMAIL_VAL}}" required>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">Initial Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Minimum 8 characters" required minlength="8">
+        <span class="form-text">The voter will use this password to login with their CNIC</span>
+      </div>
+      <div class="d-flex gap-3">
+        <button type="submit" class="btn btn-primary btn-lg">Add Voter</button>
+        <a href="/admin/voters" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

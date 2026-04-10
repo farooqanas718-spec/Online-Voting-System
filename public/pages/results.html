@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Results - {{ELECTION_TITLE}}</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+<style>
+@keyframes confetti{0%{transform:translateY(-100vh) rotate(0deg);}100%{transform:translateY(100vh) rotate(720deg);}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="{{BACK_URL}}" class="navbar-brand">🗳️ VoteSecure</a>
+      <ul class="navbar-nav">
+        <li><a href="{{BACK_URL}}">← Back</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-8">
+  <!-- Header -->
+  <div class="card-glass mb-8" style="padding:var(--space-8);">
+    <div class="text-center mb-6">
+      <h1 style="margin-bottom:var(--space-3);">🏆 Election Results</h1>
+      <h2 class="text-primary">{{ELECTION_TITLE}}</h2>
+      <p class="text-gray mt-3">{{ELECTION_DESC}}</p>
+    </div>
+    <div style="display:flex;justify-content:center;gap:var(--space-12);margin-top:var(--space-8);flex-wrap:wrap;">
+      <div class="text-center">
+        <p class="text-sm text-gray mb-2">Total Votes Cast</p>
+        <p class="fw-bold" style="font-size:var(--text-3xl);color:var(--primary-600);">{{TOTAL_VOTES}}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-sm text-gray mb-2">Total Candidates</p>
+        <p class="fw-bold" style="font-size:var(--text-3xl);color:var(--secondary-600);">{{TOTAL_CANDIDATES}}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-sm text-gray mb-2">Election Status</p>
+        <span class="badge badge-{{STATUS_COLOR}}" style="font-size:var(--text-base);padding:var(--space-2) var(--space-4);">{{ELECTION_STATUS}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Winner -->
+  {{WINNER_HTML}}
+
+  <!-- Results list -->
+  {{NO_RESULTS}}
+  <div class="card" style="padding:var(--space-8);">
+    <h2 class="mb-6">Complete Results</h2>
+    <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+      {{RESULTS_ROWS}}
+    </div>
+  </div>
+
+  <div class="text-center mt-8">
+    <a href="{{BACK_URL}}" class="btn btn-outline">← Back</a>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script src="/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    document.querySelectorAll('.progress-bar').forEach(bar=>{
+      const tw=parseFloat(bar.getAttribute('data-width'))||0;
+      bar.style.width='0%';
+      let w=0;
+      const iv=setInterval(()=>{
+        if(w>=tw){clearInterval(iv);}
+        else{w=Math.min(w+1,tw);bar.style.width=w+'%';}
+      },10);
+    });
+  },300);
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Voting System</title>
+    <link rel="stylesheet" href="css/modern_voting.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Background Animation Layer -->
+    <div class="bg-layer">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Main SPA Container -->
+    <main id="app-container">
+        
+        <!-- LOGIN VIEW -->
+        <section id="view-login" class="view active-view glass-panel">
+            <h1 class="glow-text">Welcome to NextGen Voting</h1>
+            <p class="subtitle">Secure, Transparent, Irreversible.</p>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="cnic">CNIC ID</label>
+                    <input type="text" id="cnic" placeholder="0000000000000" autocomplete="off" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn primary-btn btn-animate">Authenticate Session</button>
+                <div class="form-links">
+                    <a href="#" id="forgot-pass-link">Forgot Password?</a>
+                </div>
+            </form>
+        </section>
+
+        <!-- DASHBOARD VIEW -->
+        <section id="view-dashboard" class="view hidden-view">
+            <nav class="glass-nav">
+                <div class="logo">NextGen<span>Voting</span></div>
+                <div class="user-info">Logged in as <strong id="nav-user-cnic">...</strong></div>
+                <button id="btn-logout" class="btn outline-btn">Disconnect</button>
+            </nav>
+            
+            <div class="welcome-banner glass-panel">
+                <h2 id="dashboard-title">Voter Portal</h2>
+            </div>
+            
+            <div class="grid-layout">
+                <!-- Data populated dynamically via JS -->
+                <div class="elections-list glass-panel" id="elections-container">
+                    <h3>Available Elections</h3>
+                    <div id="election-list-wrapper">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="actions-panel glass-panel" id="actions-container">
+                    <h3>Available Actions</h3>
+                    <button class="btn secondary-btn w-100 mb-2 btn-animate" id="btn-apply-candidate">Apply as Candidate</button>
+                    <button class="btn secondary-btn w-100 btn-animate" id="btn-reset-password">Change Password</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ADMIN VIEW subset -->
+        <section id="view-admin" class="view hidden-view">
+            <nav class="glass-nav">
+                <div class="logo">NextGen<span>Admin</span></div>
+                <button id="btn-admin-logout" class="btn outline-btn">Disconnect</button>
+            </nav>
+            <div class="admin-grid">
+                <div class="glass-panel admin-actions">
+                    <h3>Administrative Controls</h3>
+                    <button class="btn primary-btn w-100 mb-2 btn-animate" id="btn-create-voter">Register New Voter</button>
+                    <button class="btn primary-btn w-100 mb-2 btn-animate" id="btn-toggle-ban">Toggle Account Ban</button>
+                    <button class="btn primary-btn w-100 btn-animate" id="btn-candidate-apps">Review Candidate Applications</button>
+                </div>
+                <div class="glass-panel data-panel" id="admin-data-view">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Overlay Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden-view">
+        <div class="modal-box glass-panel" id="modal-box">
+            <h3 id="modal-title">Action</h3>
+            <div id="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn outline-btn" id="btn-modal-close">Cancel</button>
+                <button class="btn primary-btn" id="btn-modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/ui_controller.js"></script>
+</body>
+</html>

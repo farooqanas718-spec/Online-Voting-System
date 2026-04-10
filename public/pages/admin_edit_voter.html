@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Edit Voter - Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><a href="/admin/voters">← Manage Voters</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6" style="max-width:740px;">
+
+  <!-- EDIT FORM -->
+  <div class="card-glass p-8 mb-6">
+    <h1 class="h2 mb-1">✏️ Edit Voter</h1>
+    <p class="text-gray mb-6">Update voter name or reset their password. CNIC and email are permanent identifiers and cannot be changed.</p>
+    <form method="POST" action="/admin/voters/{{VOTER_ID}}/edit">
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <label class="form-label" style="font-weight:600;">CNIC <span style="color:var(--gray-500);font-weight:400;">(read-only)</span></label>
+          <input type="text" class="form-control" value="{{VOTER_CNIC}}" disabled
+            style="background:var(--gray-100);cursor:not-allowed;color:var(--gray-600);">
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label" style="font-weight:600;">Email Address</label>
+          <input type="email" id="email" name="email" class="form-control"
+            value="{{VOTER_EMAIL}}" required placeholder="voter@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" id="name" name="name" class="form-control"
+          value="{{VOTER_NAME}}" required minlength="2" placeholder="Full legal name">
+      </div>
+      <div class="form-group">
+        <label for="new_password" class="form-label">New Password
+          <span style="color:var(--gray-500);font-weight:400;">(leave blank to keep current)</span>
+        </label>
+        <input type="password" id="new_password" name="new_password" class="form-control"
+          placeholder="Min 6 characters" minlength="6">
+      </div>
+      <div class="d-flex gap-3 mt-2">
+        <button type="submit" class="btn btn-primary" id="saveVoterBtn">💾 Save Changes</button>
+        <a href="/admin/voters" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- DANGER ZONE: PERMANENT DELETE -->
+  <div class="card-glass p-6" style="border:1px solid rgba(239,68,68,0.35);background:rgba(239,68,68,0.05);">
+    <h2 class="h4 mb-2" style="color:var(--danger-600);">⚠️ Danger Zone</h2>
+    <p class="text-gray mb-4">
+      Permanently delete this voter and all their associated data (votes, applications, candidacies).
+      <strong style="color:var(--danger-600);">This action cannot be undone.</strong>
+      Use this only when the voter was registered with incorrect CNIC or email.
+    </p>
+    <form method="POST" action="/admin/voters/{{VOTER_ID}}/delete"
+      onsubmit="return confirm('⚠️ PERMANENT DELETE\n\nThis will completely remove voter {{VOTER_NAME}} and ALL their data from the database.\n\nThis CANNOT be undone!\n\nAre you absolutely sure?');">
+      <button type="submit" class="btn" id="deleteVoterBtn"
+        style="background:var(--danger-600);color:#fff;border:none;">
+        🗑️ Permanently Delete Voter
+      </button>
+    </form>
+  </div>
+
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Application Status - Voting System</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/dashboard" class="navbar-brand">🗳️ VoteSecure</a>
+      <ul class="navbar-nav">
+        <li><a href="/dashboard">← Dashboard</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="card-glass p-8" style="max-width:700px;margin:0 auto;">
+    <h1 class="h2 mb-2">Application Status</h1>
+    <p class="text-gray mb-6">Election: <strong>{{ELECTION_TITLE}}</strong></p>
+    <div class="text-center mb-6">
+      <span class="badge badge-{{STATUS_COLOR}}" style="font-size:var(--text-lg);padding:var(--space-3) var(--space-6);">
+        {{APP_STATUS}}
+      </span>
+    </div>
+    {{REASON_HTML}}
+    <div class="card-glass p-4 mb-4">
+      <h3 class="h5 mb-2">Your Statement</h3>
+      <p class="text-gray">{{APP_DESC}}</p>
+    </div>
+    <p class="text-sm text-gray">Applied on: {{APP_DATE}}</p>
+    <div class="mt-6">
+      <a href="/dashboard" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

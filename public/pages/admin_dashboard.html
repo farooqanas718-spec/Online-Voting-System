@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Dashboard - Voting System</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><span style="color:var(--gray-600);">Welcome, <strong>{{USER_NAME}}</strong></span></li>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/elections">Elections</a></li>
+        <li><a href="/admin/voters">Voters</a></li>
+        <li><a href="/admin/change-password">🔒 Change Password</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="mb-8">
+    <h1>Admin Dashboard</h1>
+    <p class="lead text-gray">Manage elections, voters, and applications</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-4 mb-6">
+    <div class="col-md-3">
+      <a href="/admin/elections" style="text-decoration:none;">
+      <div class="card-glass p-4" style="transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <h3 class="h1 mb-2">{{TOTAL_ELECTIONS}}</h3>
+        <p class="text-gray mb-0">Total Elections</p>
+      </div></a>
+    </div>
+    <div class="col-md-3">
+      <a href="/admin/elections" style="text-decoration:none;">
+      <div class="card-glass p-4" style="transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <h3 class="h1 mb-2 text-success">{{ACTIVE_ELECTIONS}}</h3>
+        <p class="text-gray mb-0">Active Elections</p>
+      </div></a>
+    </div>
+    <div class="col-md-3">
+      <a href="/admin/voters" style="text-decoration:none;">
+      <div class="card-glass p-4" style="transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <h3 class="h1 mb-2">{{TOTAL_VOTERS}}</h3>
+        <p class="text-gray mb-0">Registered Voters</p>
+      </div></a>
+    </div>
+    <div class="col-md-3">
+      <a href="/admin/voters?filter=resets" style="text-decoration:none;">
+      <div class="card-glass p-4" style="transition:transform 0.2s;border:{{RESET_BORDER}};" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <h3 class="h1 mb-2" style="color:{{RESET_COLOR}}">{{RESET_REQUESTS}}</h3>
+        <p class="text-gray mb-0">🔑 Reset Requests</p>
+      </div></a>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="card-glass p-6 mb-6">
+    <h2 class="h3 mb-4">Quick Actions</h2>
+    <div class="d-flex gap-3 flex-wrap">
+      <a href="/admin/elections/create" class="btn btn-primary">➕ Create Election</a>
+      <a href="/admin/voters/add" class="btn btn-secondary">👥 Add Voter</a>
+      <a href="/admin/applications" class="btn btn-warning">📝 Applications ({{PENDING_APPS_STR}})</a>
+      <a href="/admin/voters?filter=resets" class="btn" style="background:#dc3545;color:#fff;">🔑 Reset Requests ({{RESET_REQUESTS}})</a>
+      <a href="/admin/voters" class="btn btn-info">🔍 All Voters</a>
+    </div>
+  </div>
+
+  <!-- Recent Elections -->
+  <div class="card-glass p-6 mb-6">
+    <h2 class="h3 mb-4">Recent Elections</h2>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th><th>Status</th><th>Start Date</th><th>Eligible Voters</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{{RECENT_ROWS}}</tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pending Applications section (rendered conditionally by C) -->
+  {{PENDING_SECTION}}
+</div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p>
+    <p class="text-sm" style="margin-top:var(--space-2);">BS Computer Science | Ziauddin University</p>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+<script>
+function rejectApplication(id){
+  const reason=prompt('Enter rejection reason:');
+  if(reason){
+    const form=document.createElement('form');
+    form.method='POST';
+    form.action='/admin/applications/'+id+'/reject';
+    const ri=document.createElement('input');ri.type='hidden';ri.name='reason';ri.value=reason;
+    form.appendChild(ri);document.body.appendChild(form);form.submit();
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

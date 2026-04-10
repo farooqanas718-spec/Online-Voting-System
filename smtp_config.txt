@@ -1,0 +1,19 @@
+# SMTP Configuration for Voting System Email Notifications
+# Fill in your email provider details and save this file
+
+smtp_server=smtp.gmail.com
+smtp_port=587
+smtp_user=your-email@gmail.com
+smtp_pass=your-app-password
+smtp_from=your-email@gmail.com
+
+# GMAIL SETUP INSTRUCTIONS:
+# 1. Go to https://myaccount.google.com/security
+# 2. Enable 2-Step Verification
+# 3. Search for "App Passwords" in Google Account settings
+# 4. Create an App Password for "Mail" > "Windows Computer"
+# 5. Use the 16-character code (no spaces) as smtp_pass above
+#
+# OUTLOOK/HOTMAIL:
+# smtp_server=smtp.office365.com
+# smtp_port=587

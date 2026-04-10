@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Applications - Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><a href="/admin/elections">← Elections</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <h1 class="mb-2">Candidate Applications</h1>
+  <p class="text-gray mb-6">Election: <strong>{{ELECTION_TITLE}}</strong></p>
+  <div class="card-glass p-6">
+    {{APPLICATION_CARDS}}
+  </div>
+  <div class="mt-4">
+    <a href="/admin/elections/{{ELECTION_ID}}/candidates" class="btn btn-info">Manage Candidates</a>
+    <a href="/admin/elections" class="btn btn-outline ml-3">← Back to Elections</a>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+function rejectApp(id){
+  const reason=prompt('Rejection reason:');
+  if(reason){
+    const form=document.createElement('form');
+    form.method='POST';
+    form.action='/admin/applications/'+id+'/reject';
+    const r=document.createElement('input');r.type='hidden';r.name='reason';r.value=reason;
+    form.appendChild(r);document.body.appendChild(form);form.submit();
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

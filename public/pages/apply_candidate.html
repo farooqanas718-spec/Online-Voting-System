@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Apply as Candidate - {{ELECTION_TITLE}}</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/dashboard" class="navbar-brand">🗳️ VoteSecure</a>
+      <ul class="navbar-nav">
+        <li><a href="/dashboard">← Back to Dashboard</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="card-glass p-8" style="max-width:700px;margin:0 auto;">
+    <h1 class="h2 mb-2">Apply as Candidate</h1>
+    <p class="text-gray mb-6">Election: <strong>{{ELECTION_TITLE}}</strong></p>
+
+    <div class="card-glass p-4 mb-6" style="background:var(--primary-50);border-left:4px solid var(--primary-500);">
+      <p class="text-sm"><strong>Your Name:</strong> {{USER_NAME}}</p>
+      <p class="text-sm mt-2"><strong>Your CNIC:</strong> {{USER_CNIC_FMT}}</p>
+    </div>
+
+    <form method="POST" action="/election/{{ELECTION_ID}}/apply">
+      <div class="form-group">
+        <label for="description" class="form-label">Why should voters choose you?</label>
+        <textarea id="description" name="description" class="form-control" rows="5"
+            placeholder="Describe your qualifications, experience, and what you plan to accomplish if elected... (minimum 10 characters)" required></textarea>
+        <span class="form-text">This will be shown to all eligible voters</span>
+      </div>
+      <div class="d-flex gap-3">
+        <button type="submit" class="btn btn-primary btn-lg">Submit Application</button>
+        <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

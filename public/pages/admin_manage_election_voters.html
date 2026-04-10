@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manage Election Voters - Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><a href="/admin/elections">← Elections</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="card-glass p-8" style="max-width:900px;margin:0 auto;">
+    <h1 class="h2 mb-2">Manage Eligible Voters</h1>
+    <p class="text-gray mb-6">Election: <strong>{{ELECTION_TITLE}}</strong></p>
+    <form method="POST" action="/admin/elections/{{ELECTION_ID}}/voters">
+      <div class="form-group">
+        <label class="form-label">Select Eligible Voters</label>
+        <p class="text-sm text-gray mb-3">Only selected voters will be eligible to vote and apply as candidates</p>
+        <div class="card-glass p-4" style="max-height:500px;overflow-y:auto;">
+          <div class="mb-3">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="document.querySelectorAll('.voter-checkbox').forEach(c=>c.checked=true)">Select All</button>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="document.querySelectorAll('.voter-checkbox').forEach(c=>c.checked=false)">Deselect All</button>
+          </div>
+          <div class="row g-2">{{VOTER_CHECKBOXES}}</div>
+        </div>
+      </div>
+      <div class="d-flex gap-3 mt-4">
+        <button type="submit" class="btn btn-primary">Update Voter List</button>
+        <a href="/admin/elections" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

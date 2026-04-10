@@ -1,0 +1,81 @@
+<!-- SHARED BASE LAYOUT - included in all pages via C template engine -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Secure Online Voting System - Cast your vote with confidence">
+<meta name="author" content="Anas Farooq">
+<title>Login - Online Voting System</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+<link rel="stylesheet" href="/css/candidate.css">
+</head>
+<body>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary-50) 0%,var(--secondary-50) 100%);padding:var(--space-6);">
+<div style="width:100%;max-width:480px;">
+
+    <!-- Logo -->
+    <div class="text-center mb-8">
+        <div style="font-size:4rem;margin-bottom:var(--space-4);">🗳️</div>
+        <h1 style="background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:var(--space-2);">VoteSecure</h1>
+        <p class="text-gray">Online Voting System</p>
+    </div>
+
+    <!-- Flash Message -->
+    {{FLASH_MESSAGE}}
+
+    <!-- Login Card -->
+    <div class="card-glass p-8">
+        <h2 class="text-center mb-6" style="font-size:var(--text-2xl);">Sign In</h2>
+
+        <form method="POST" action="/login" id="loginForm">
+            <div class="form-group">
+                <label for="identifier" class="form-label">CNIC (Voters) or Email (Admin)</label>
+                <input type="text" id="identifier" name="identifier" class="form-control"
+                    placeholder="00000-0000000-0 or admin@email.com"
+                    value="{{IDENTIFIER_VAL}}" required autocomplete="username">
+                <span class="form-text">Voters use CNIC number, Admins use email address</span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control"
+                    placeholder="Enter your password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary w-full btn-lg" id="signinBtn">
+                🔐 Sign In
+            </button>
+            <div class="text-center mt-4">
+                <a href="/forgot-password" style="color:var(--primary-400);font-size:var(--text-sm);">
+                    🔑 Forgot your password?
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer note -->
+    <p class="text-center text-gray text-sm mt-6">
+        &copy; 2026 Online Voting System &mdash; Developed by <strong>Anas Farooq</strong><br>
+        <span style="color:var(--gray-500);">BS Computer Science | Ziauddin University</span>
+    </p>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(a => {
+        setTimeout(() => {
+            a.style.opacity = '0';
+            a.style.transform = 'translateY(-20px)';
+            a.style.transition = 'all 0.3s';
+            setTimeout(() => a.remove(), 300);
+        }, 5000);
+    });
+    // Clear flash cookies
+    document.cookie = 'flash_msg=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'flash_type=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

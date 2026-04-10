@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Voter Dashboard - Online Voting System">
+<title>My Elections - Voting System</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+<link rel="stylesheet" href="/css/candidate.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/dashboard" class="navbar-brand">🗳️ VoteSecure</a>
+      <ul class="navbar-nav">
+        <li><span style="color:var(--gray-600);">Welcome, <strong>{{USER_NAME}}</strong></span></li>
+        <li><a href="/dashboard">My Elections</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <div class="mb-8">
+    <h1>My Elections</h1>
+    <p class="lead text-gray">View and participate in your eligible elections</p>
+    <p class="text-sm text-gray mt-2">Your CNIC: <strong>{{USER_CNIC}}</strong></p>
+  </div>
+  <div class="row g-4">
+    {{ELECTION_CARDS}}
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p>
+    <p class="text-sm" style="margin-top:var(--space-2);">BS Computer Science | Ziauddin University</p>
+    <p class="text-sm" style="color:var(--gray-500);margin-top:var(--space-2);">Secure &bull; Transparent &bull; Reliable</p>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transform='translateY(-20px)';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>

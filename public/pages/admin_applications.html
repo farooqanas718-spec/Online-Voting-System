@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>All Applications - Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/enhancements.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="/admin/dashboard" class="navbar-brand">🗳️ VoteSecure Admin</a>
+      <ul class="navbar-nav">
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/elections">Elections</a></li>
+        <li><a href="/logout" class="btn btn-sm btn-outline">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">{{FLASH_MESSAGE}}</div>
+<main>
+<div class="container py-6">
+  <h1 class="mb-4">All Candidate Applications</h1>
+  <!-- Filter tabs -->
+  <div class="d-flex gap-2 mb-4">
+    <a href="/admin/applications" class="btn btn-sm {{STATUS_FILTER}}==all?btn-primary:btn-outline">All</a>
+    <a href="/admin/applications?status=pending" class="btn btn-sm btn-warning">Pending</a>
+    <a href="/admin/applications?status=approved" class="btn btn-sm btn-success">Approved</a>
+    <a href="/admin/applications?status=rejected" class="btn btn-sm btn-danger">Rejected</a>
+  </div>
+  <div class="card-glass p-6">
+    {{NO_APPS_MSG}}
+    <div class="table-responsive">
+      <table class="table">
+        <thead><tr><th>Applicant</th><th>CNIC</th><th>Election</th><th>Applied At</th><th>Status</th></tr></thead>
+        <tbody>{{APPLICATION_ROWS}}</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 Online Voting System | Developed by <strong>Anas Farooq</strong></p></div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const alerts=document.querySelectorAll('.alert');
+  alerts.forEach(a=>{setTimeout(()=>{a.style.opacity='0';a.style.transition='all 0.3s';setTimeout(()=>a.remove(),300)},5000);});
+  document.cookie='flash_msg=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie='flash_type=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+</script>
+</body>
+</html>
